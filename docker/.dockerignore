@@ -1,0 +1,2 @@
+# db-init ถูก mount ตอนรัน (ดู docker-compose.yml) ไม่ต้องส่งเข้า build context
+db-init/

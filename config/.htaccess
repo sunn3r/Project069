@@ -1,0 +1,8 @@
+# กันไม่ให้เข้าถึงไฟล์ในโฟลเดอร์ config/ ผ่านเว็บโดยตรง
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+</IfModule>

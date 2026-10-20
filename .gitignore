@@ -1,0 +1,16 @@
+node_modules/
+
+# ค่าเชื่อมต่อฐานข้อมูลจริง (แต่ละเซิร์ฟเวอร์ไม่เหมือนกัน)
+config/credentials.php
+config/credentials.server.php
+
+# ไฟล์ที่ผู้ใช้อัปโหลด (สำเนาบัตร ปชช. ใบรับรองแพทย์ สลิป ฯลฯ) ไม่ควรอยู่ใน git
+# แต่เก็บ .htaccess ทุกตัวไว้
+assets/uploads/*/*
+!assets/uploads/*/.htaccess
+
+# Docker
+docker/db-init/*.sql
+
+# ฐานข้อมูลที่ export ไว้
+*.sql

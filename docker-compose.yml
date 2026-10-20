@@ -1,0 +1,49 @@
+# สภาพแวดล้อมรันในเครื่องสำหรับ project069 (PHP + MySQL)
+# ใช้:  docker compose up -d   แล้วเปิด http://localhost:8000
+#
+#   web         เว็บแอป (PHP 8.2 + Apache)        -> http://localhost:8000
+#   db          MariaDB 11                        -> localhost:3307 (จากภายนอก container)
+#   phpmyadmin  จัดการฐานข้อมูล / import-export   -> http://localhost:8081
+
+services:
+  web:
+    build: ./docker
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www/html
+    environment:
+      DB_HOST: db
+      DB_NAME: recruitment_db
+      DB_USER: root
+      DB_PASS: root
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    image: mariadb:11
+    ports:
+      - "3307:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: recruitment_db
+    volumes:
+      - db-data:/var/lib/mysql
+      # ไฟล์ .sql ในโฟลเดอร์นี้จะถูก import อัตโนมัติ "ตอนสร้าง volume ครั้งแรกเท่านั้น"
+      - ./docker/db-init:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+
+  phpmyadmin:
+    image: phpmyadmin:5
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      UPLOAD_LIMIT: 300M
+    depends_on:
+      - db
+    restart: unless-stopped
+
+volumes:
+  db-data:

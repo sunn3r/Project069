@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/c/xampp/php/php.exe \"C:\\\\Users\\\\user\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-user-Project069\\\\1c776dce-6bf4-483b-a1b4-841515f2053f\\\\scratchpad\\\\test_announce_post.php\")",
+      "Bash(/c/xampp/php/php.exe -l /c/Users/user/Project069/admin/index.php)",
+      "Bash(/c/xampp/mysql/bin/mysql.exe -u root -h localhost -e \"SELECT 1;\")"
+    ]
+  }
+}

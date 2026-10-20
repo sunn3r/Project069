@@ -1,0 +1,37 @@
+# ---------- ความปลอดภัยพื้นฐาน ----------
+
+# ปิดการแสดงรายการไฟล์ในโฟลเดอร์
+Options -Indexes
+
+# กันการเข้าถึงไฟล์ที่ขึ้นต้นด้วยจุด (.git, .htaccess, .gitignore ฯลฯ)
+<FilesMatch "^\.">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# กันไฟล์ที่ไม่ควรเปิดผ่านเว็บ
+<FilesMatch "\.(md|sql|json|lock|example\.php)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# ---------- บังคับใช้ HTTPS ----------
+# เปิดใช้เมื่อเซิร์ฟเวอร์ของมหาลัยติดตั้ง SSL แล้ว (ลบ # ออก)
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTPS} off
+#     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
+
+# ---------- หน้าเริ่มต้น ----------
+DirectoryIndex index.php
